@@ -37,3 +37,6 @@ cmake-build-*/
 
 # Runtime files
 inventory.csv
+
+vcpkg_installed/
+install/

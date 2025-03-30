@@ -43,5 +43,17 @@ find_package(Qt6 6.2 REQUIRED COMPONENTS
         Svg
         Widgets
 )
+qt_standard_project_setup()
 
 add_subdirectory(src)
+
+set(CPACK_PACKAGE_NAME "XenoProbes")
+set(CPACK_PACKAGE_VENDOR "XenoProbes")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY
+    "XenoProbes - Tool for calculating optimal probe placement in Xenoblade Chronicles X")
+set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}/resources\\\\dataprobe.png")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
+set(CPACK_CREATE_DESKTOP_LINKS xenoprobes_gui)
+set(CPACK_PACKAGE_EXECUTABLES "xenoprobes_gui" "XenoProbes")
+include(InstallRequiredSystemLibraries)
+include(CPack)

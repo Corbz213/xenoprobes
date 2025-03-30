@@ -1,4 +1,9 @@
-qt_add_executable(${PROJECT_NAME}_gui
+if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    # Necessary to hide the console on startup in Windows
+    set(WIN32_OPTION "WIN32")
+endif ()
+
+qt_add_executable(${PROJECT_NAME}_gui ${WIN32_OPTION}
         ${PROJECT_SOURCE_DIR}/resources/resources.qrc
         AboutDialog.h
         AboutDialog.cpp
@@ -66,4 +71,22 @@ if (NOT CMAKE_SYSTEM_NAME STREQUAL "Linux")
         )
     endif ()
     install(SCRIPT ${DEPLOY_SCRIPT})
+    # This feels like a horrible hack, but we need several libraries that end up in the build dir
+    # but qt_generate_deploy_app_script does not include in its output, so we just manually copy
+    # them over here.  Is there a better way to do this?
+    install(
+        FILES
+        ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/zlib1.dll
+        ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/libpng16.dll
+        ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/harfbuzz.dll
+        ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/freetype.dll
+        ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/pcre2-16.dll
+        ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/zstd.dll
+        ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/double-conversion.dll
+        ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/bz2.dll
+        ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/brotlidec.dll
+        ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/brotlicommon.dll
+        DESTINATION
+        ${CMAKE_INSTALL_BINDIR}
+    )
 endif ()
