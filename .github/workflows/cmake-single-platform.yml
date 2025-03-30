@@ -29,13 +29,16 @@ jobs:
       run: cmake -G Ninja -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: Build
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      run: |
+        cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+        cpack -G DEB
 
     - name: Prepare Artifacts
       run: |
         mkdir dist
         cp ${{github.workspace}}/build/src/xenoprobes/xenoprobes dist/
         cp ${{github.workspace}}/build/src/xenoprobes_gui/xenoprobes_gui dist/
+        cp ${{github.workspace}}/build/xenoprobes-*.deb dist/
         cp ${{github.workspace}}/sites.csv dist/
         cp ${{github.workspace}}/sample-inventory.csv dist/
 
