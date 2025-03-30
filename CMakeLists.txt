@@ -43,5 +43,30 @@ find_package(Qt6 6.2 REQUIRED COMPONENTS
         Svg
         Widgets
 )
+qt_standard_project_setup()
 
 add_subdirectory(src)
+
+# Global CPack options
+set(CPACK_PACKAGE_NAME "XenoProbes")
+set(CPACK_PACKAGE_VENDOR "XenoProbes")
+set(CPACK_PACKAGE_CONTACT "preed@fuzzyfox.net")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY
+    "XenoProbes - Tool for calculating optimal probe placement in Xenoblade Chronicles X")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "XenoProbes")
+set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}/resources\\\\dataprobe.png")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
+set(CPACK_CREATE_DESKTOP_LINKS xenoprobes_gui)
+set(CPACK_PACKAGE_EXECUTABLES "xenoprobes_gui" "XenoProbes")
+
+# CPack DEB options
+set(CPACK_DEBIAN_FILE_NAME DEB-DEFAULT)
+set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS on)
+
+# CPack RPM options
+set(CPACK_RPM_PACKAGE_AUTOREQ yes)
+set(CPACK_RPM_FILE_NAME RPM-DEFAULT)
+set(CPACK_RPM_CHANGELOG_FILE "${CMAKE_SOURCE_DIR}/CHANGELOG.md")
+
+include(InstallRequiredSystemLibraries)
+include(CPack)

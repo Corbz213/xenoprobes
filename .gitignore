@@ -34,6 +34,10 @@ cmake-build-*
 # CMake build dir
 build/
 cmake-build-*/
+vcpkg_installed/
+install/
+_CPack_Packages/
 
 # Runtime files
 inventory.csv
+
