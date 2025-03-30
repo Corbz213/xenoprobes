@@ -39,7 +39,7 @@ jobs:
         mkdir dist
         cp ${{github.workspace}}/build/src/xenoprobes/xenoprobes dist/
         cp ${{github.workspace}}/build/src/xenoprobes_gui/xenoprobes_gui dist/
-        cp ${{github.workspace}}/build/xenoprobes-*.deb dist/
+        cp ${{github.workspace}}/build/xenoprobes_*.deb dist/
         cp ${{github.workspace}}/sites.csv dist/
         cp ${{github.workspace}}/sample-inventory.csv dist/
 
